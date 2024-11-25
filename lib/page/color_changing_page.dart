@@ -36,6 +36,14 @@ class _ColorChangingScreenState extends State<ColorChangingScreen>
     super.dispose();
   }
 
+  Future<void> _handleTap(ColorChangingState state) async {
+    await _cubit.updateColors(state.colorChangeCount ?? 0);
+    await (_animationController.isDismissed
+        ? _animationController.forward()
+        : _animationController.reverse());
+  }
+
+  // Convert AppColor to Flutter Color
   Color _convertToColor(AppColor? color) {
     return color != null
         ? Color.fromRGBO(color.red, color.green, color.blue, color.opacity)
@@ -62,13 +70,6 @@ class _ColorChangingScreenState extends State<ColorChangingScreen>
     );
   }
 
-  Future<void> _handleTap(ColorChangingState state) async {
-    await _cubit.updateColors(state.colorChangeCount ?? 0);
-    await (_animationController.isDismissed
-        ? _animationController.forward()
-        : _animationController.reverse());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,8 +80,9 @@ class _ColorChangingScreenState extends State<ColorChangingScreen>
           builder: (context, state) {
             switch (state.status) {
               case ColorChangePageStatus.loading:
-              case ColorChangePageStatus.error:
                 return const CircularProgressIndicator();
+              case ColorChangePageStatus.error:
+                return const SizedBox.shrink();
               case ColorChangePageStatus.loaded:
                 return _buildLoadedState(state);
             }

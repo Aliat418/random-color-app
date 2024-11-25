@@ -1,69 +1,53 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:injectable/injectable.dart';
 
 import '../model/app_color.dart';
+import '../utils/app_color_utils.dart';
 
-class ColorUtils {
-  static const maxRgbValue = 255;
-  static const luminanceThreshold = 0.46;
-  static const luminanceWeights = (
-    red: 0.299,
-    green: 0.587,
-    blue: 0.114,
-  );
+abstract class ColorChangingService {
+  Future<AppColor> generateRandomColor();
 
-  static double calculateLuminance(AppColor color) {
-    return (luminanceWeights.red * color.red +
-            luminanceWeights.green * color.green +
-            luminanceWeights.blue * color.blue) /
-        255;
-  }
-
-  static AppColor getAccessibleColor(AppColor backgroundColor) {
-    final luminance = calculateLuminance(AppColor.fromRGBO(
-      red: backgroundColor.red,
-      green: backgroundColor.green,
-      blue: backgroundColor.blue,
-    ));
-    return luminance > luminanceThreshold ? AppColor.dark() : AppColor.light();
-  }
-}
-
-abstract class ColorService {
-  AppColor generateRandomColor();
-
-  AppColor selectAccessibleColor(AppColor backgroundColor) {
+  Future<AppColor> selectAccessibleColor(AppColor backgroundColor) async {
     return ColorUtils.getAccessibleColor(backgroundColor);
   }
 }
 
 @named
-@Singleton(as: ColorService)
-class SimpleRandomColorService extends ColorService {
-  final Random _random = Random.secure();
+@Singleton(as: ColorChangingService)
+class SimpleColorChangingService extends ColorChangingService {
+  // Use .secure() to be truly random
+  final Random _random = Random();
 
   @override
-  AppColor generateRandomColor() => AppColor(
+  Future<AppColor> generateRandomColor() async => AppColor(
         red: _random.nextInt(256),
         green: _random.nextInt(256),
         blue: _random.nextInt(256),
       );
 }
 
-@singleton
-class ColorRepository {
-  final ColorService _colorService;
+@named
+@Singleton(as: ColorChangingService)
+class CustomColorChangingService extends ColorChangingService {
+  @override
+  Future<AppColor> generateRandomColor() async {
+    // Create unique seed by combining 3 values using XOR
+    final seed = DateTime.now().microsecondsSinceEpoch ^
+        Platform.operatingSystemVersion.hashCode ^
+        Platform.localHostname.hashCode;
 
-  ColorRepository({
-    @Named.from(SimpleRandomColorService) required ColorService colorService,
-  }) : _colorService = colorService;
+    // Extract RGB channels using bit masking
+    final red = (seed & 0xFF000000) >> 24;
+    final green = (seed & 0x00FF0000) >> 16;
+    final blue = (seed & 0x0000FF00) >> 8;
 
-  AppColor generateRandomColor() {
-    return _colorService.generateRandomColor();
-  }
-
-  AppColor selectAccessibleColor(AppColor backgroundColor) {
-    return _colorService.selectAccessibleColor(backgroundColor);
+    // Ensure values are within 0-255 range
+    return AppColor(
+      red: red.abs() % 256,
+      green: green.abs() % 256,
+      blue: blue.abs() % 256,
+    );
   }
 }
