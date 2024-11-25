@@ -1,0 +1,13 @@
+{
+    "@@locale": "en",
+    "appName": "Random Color App",
+    "helloThere": "Hello there",
+    "colorsChanged": "Colors changed: {count}",
+    "@colorsChanged": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    }
+}
