@@ -6,12 +6,14 @@ import 'package:injectable/injectable.dart';
 import '../model/app_color.dart';
 import '../utils/app_color_utils.dart';
 
-abstract class ColorChangingService {
-  Future<AppColor> generateRandomColor();
-
-  Future<AppColor> selectAccessibleColor(AppColor backgroundColor) async {
+mixin AccessibleColorMixin {
+  AppColor selectAccessibleColor(AppColor backgroundColor) {
     return ColorUtils.getAccessibleColor(backgroundColor);
   }
+}
+
+abstract class ColorChangingService with AccessibleColorMixin {
+  Future<AppColor> generateRandomColor();
 }
 
 @named
