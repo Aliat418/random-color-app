@@ -15,10 +15,13 @@ A Flutter application that provides color management functionality with support 
 ## Tech Stack
 
 ### Environment
-- Flutter SDK: ^3.5.4
-- Dart SDK: >=3.0.0
+```yaml
+Flutter SDK: ^3.5.4
+Dart SDK: >=3.0.0
+```
 
 ### Dependencies
+```yaml
 dependencies:
   equatable: ^2.0.7
   flutter_bloc: ^8.1.6
@@ -33,9 +36,10 @@ dev_dependencies:
   flutter_test: SDK
   injectable_generator: ^2.6.2
   integration_test: SDK
+```
 
 ## Project Structure
-
+```bash
 lib/
 ├── core/
 │   ├── extension/
@@ -73,6 +77,19 @@ lib/
     │   ├── color_changing_page.dart
     │   └── color_changing_state.dart
     └── main.dart                    # Main entry point
+```
+
+## Testing Structure
+```bash
+test/
+└── data/                    # Data layer tests
+    ├── repository/
+    │   └── color_repository_test.dart
+    └── service/
+        ├── accessible_color_mixin_test.dart
+        ├── simple_color_service_test.dart
+        └── custom_color_service_test.dart
+```
 
 ## Implementation Details
 
@@ -94,33 +111,29 @@ lib/
 - Tap anywhere to change colors
 - Internationalized UI text
 
-## Testing
-test/
- └── data/                   # Data layer tests
-    ├── repository/
-    └── service/
-
-- Unit tests for all services and repository
-
 ## Getting Started
 
 1. Clone and setup:
-
+```bash
 git clone [repository-url]
 cd random-color-app
 flutter pub get
+```
 
 2. Generate dependencies:
-
+```bash
 flutter pub run build_runner build
+```
 
 3. Run tests:
-
+```bash
 flutter test
+```
 
 4. Launch application:
-
+```bash
 flutter run
+```
 
 ## Usage
 
