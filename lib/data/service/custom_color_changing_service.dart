@@ -1,34 +1,9 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:injectable/injectable.dart';
 
-import '../model/app_color.dart';
-import '../utils/app_color_utils.dart';
-
-mixin AccessibleColorMixin {
-  AppColor selectAccessibleColor(AppColor backgroundColor) {
-    return ColorUtils.getAccessibleColor(backgroundColor);
-  }
-}
-
-abstract class ColorChangingService with AccessibleColorMixin {
-  Future<AppColor> generateRandomColor();
-}
-
-@named
-@Singleton(as: ColorChangingService)
-class SimpleColorChangingService extends ColorChangingService {
-  // Use .secure() to be truly random
-  final Random _random = Random();
-
-  @override
-  Future<AppColor> generateRandomColor() async => AppColor(
-        red: _random.nextInt(256),
-        green: _random.nextInt(256),
-        blue: _random.nextInt(256),
-      );
-}
+import '../../domain/model/app_color.dart';
+import 'color_changing_service.dart';
 
 @named
 @Singleton(as: ColorChangingService)

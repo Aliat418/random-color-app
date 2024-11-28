@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 
-import '../model/app_color.dart';
+import '../../domain/model/app_color.dart';
 import '../service/color_changing_service.dart';
+import '../service/custom_color_changing_service.dart';
+import '../service/simple_color_changing_service.dart';
 
 @singleton
 class ColorRepository {

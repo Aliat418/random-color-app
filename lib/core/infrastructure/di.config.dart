@@ -11,9 +11,12 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../page/color_changing_cubit.dart' as _i357;
-import '../repository/color_repository.dart' as _i1046;
-import '../service/color_changing_service.dart' as _i1048;
+import '../../data/repository/color_repository.dart' as _i508;
+import '../../data/service/color_changing_service.dart' as _i807;
+import '../../data/service/custom_color_changing_service.dart' as _i673;
+import '../../data/service/simple_color_changing_service.dart' as _i424;
+import '../../presentation/color_changing_page/color_changing_cubit.dart'
+    as _i92;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i174.GetIt $configureDependencies(
@@ -26,21 +29,21 @@ _i174.GetIt $configureDependencies(
     environment,
     environmentFilter,
   );
-  gh.singleton<_i1048.ColorChangingService>(
-    () => _i1048.SimpleColorChangingService(),
-    instanceName: 'SimpleColorChangingService',
-  );
-  gh.singleton<_i1048.ColorChangingService>(
-    () => _i1048.CustomColorChangingService(),
+  gh.singleton<_i807.ColorChangingService>(
+    () => _i673.CustomColorChangingService(),
     instanceName: 'CustomColorChangingService',
   );
-  gh.singleton<_i1046.ColorRepository>(() => _i1046.ColorRepository(
-        simpleColorService: gh<_i1048.ColorChangingService>(
+  gh.singleton<_i807.ColorChangingService>(
+    () => _i424.SimpleColorChangingService(),
+    instanceName: 'SimpleColorChangingService',
+  );
+  gh.singleton<_i508.ColorRepository>(() => _i508.ColorRepository(
+        simpleColorService: gh<_i807.ColorChangingService>(
             instanceName: 'SimpleColorChangingService'),
-        customColorService: gh<_i1048.ColorChangingService>(
+        customColorService: gh<_i807.ColorChangingService>(
             instanceName: 'CustomColorChangingService'),
       ));
-  gh.factory<_i357.ColorChangingCubit>(
-      () => _i357.ColorChangingCubit(gh<_i1046.ColorRepository>()));
+  gh.factory<_i92.ColorChangingCubit>(
+      () => _i92.ColorChangingCubit(gh<_i508.ColorRepository>()));
   return getIt;
 }
