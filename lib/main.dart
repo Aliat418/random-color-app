@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'infrastructure/di.dart';
-import 'random_color_app.dart';
+import 'core/infrastructure/di.dart';
+import 'presentation/app/random_color_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

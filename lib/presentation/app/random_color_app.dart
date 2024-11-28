@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'page/color_changing_page.dart';
-import 'l10n/app_localizations.dart';
+import '../color_changing_page/color_changing_page.dart';
+import '../../l10n/app_localizations.dart';
 
 class RandomColorApp extends StatelessWidget {
   const RandomColorApp({super.key});

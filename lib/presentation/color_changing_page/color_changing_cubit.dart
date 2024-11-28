@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../repository/color_repository.dart';
-import '../model/app_color.dart';
+import '../../data/repository/color_repository.dart';
+import '../../domain/model/app_color.dart';
 
 part 'color_changing_state.dart';
 

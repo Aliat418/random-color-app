@@ -1,6 +1,6 @@
-import '../model/app_color.dart';
+import '../../domain/model/app_color.dart';
 
-class ColorUtils {
+class ColorUtil {
   static const maxRgbValue = 255;
   static const luminanceThreshold = 0.46;
   static const luminanceWeights = (
@@ -9,15 +9,15 @@ class ColorUtils {
     blue: 0.114,
   );
 
-  static double calculateLuminance(AppColor color) {
+  static Future<double> calculateLuminance(AppColor color) async {
     return (luminanceWeights.red * color.red +
             luminanceWeights.green * color.green +
             luminanceWeights.blue * color.blue) /
         255;
   }
 
-  static AppColor getAccessibleColor(AppColor backgroundColor) {
-    final luminance = calculateLuminance(AppColor.fromRGBO(
+  static Future<AppColor> getAccessibleColor(AppColor backgroundColor) async {
+    final luminance = await calculateLuminance(AppColor.fromRGBO(
       red: backgroundColor.red,
       green: backgroundColor.green,
       blue: backgroundColor.blue,

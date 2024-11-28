@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../infrastructure/locator.dart';
-import '../model/app_color.dart';
-import '../utils/build_context_ext.dart';
+import '../../core/infrastructure/locator.dart';
+import '../../domain/model/app_color.dart';
+import '../../core/extension/build_context_ext.dart';
 
 import 'color_changing_cubit.dart';
 
