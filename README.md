@@ -11,7 +11,6 @@ A Flutter application that provides color management functionality with support 
 - Animated color transitions
 - Internationalization support
 - Clean architecture implementation
-- Comprehensive test coverage
 
 ## Tech Stack
 
