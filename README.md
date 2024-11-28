@@ -37,24 +37,42 @@ dev_dependencies:
 ## Project Structure
 
 lib/
-├── core/                    # Core functionality
-│   ├── extension/          
-│   ├── infrastructure/      # DI setup
+├── core/
+│   ├── extension/
+│   │   └── build_context_ext.dart   # Build context extensions
+│   ├── infrastructure/
+│   │   ├── di.config.dart           # Generated DI configuration
+│   │   ├── di.dart                  # DI setup
+│   │   └── locator.dart             # Service locator
 │   └── util/
-├── data/                    # Data layer
+│       └── app_color_util.dart      # Color utility functions
+│
+├── data/
 │   ├── repository/
+│   │   └── color_repository.dart     # Color management repository
 │   └── service/
 │       ├── accessible_color_mixin.dart
 │       ├── color_changing_service.dart
 │       ├── custom_color_changing_service.dart
 │       └── simple_color_changing_service.dart
-├── domain/                  # Domain layer
+│
+├── domain/
 │   └── model/
-│       └── app_color.dart
-├── presentation/           # Presentation layer
-│   ├── app/
-│   └── color_changing_page/
-└── l10n/                   # Localization
+│       └── app_color.dart           # Color entity
+│
+├── l10n/                            # Localization
+│   ├── app_en.arb                   # English translations
+│   ├── app_localizations_en.dart
+│   └── app_localizations.dart
+│
+└── presentation/
+    ├── app/
+    │   └── random_color_app.dart    # App entry point
+    ├── color_changing_page/
+    │   ├── color_changing_cubit.dart
+    │   ├── color_changing_page.dart
+    │   └── color_changing_state.dart
+    └── main.dart                    # Main entry point
 
 ## Implementation Details
 
